@@ -1,13 +1,24 @@
+"use client";
 import { TEMPLATE_LIST, TemplateType } from "@/lib/contants";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import TemplateCard from "./TemplateCard";
 
-type Props = {};
+type Props = {
+  keyword: string;
+};
 
-const TemplateList: React.FC<Props> = ({}) => {
+const TemplateList: React.FC<Props> = ({ keyword }) => {
+  const filteredList = useMemo(
+    () =>
+      TEMPLATE_LIST.filter((template) => {
+        return template.name.toLowerCase().includes(keyword.toLowerCase());
+      }),
+    [keyword]
+  );
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-5">
-      {TEMPLATE_LIST.map((template: TemplateType, index) => (
+      {filteredList.map((template: TemplateType, index) => (
         <TemplateCard key={index} item={template} />
       ))}
     </div>

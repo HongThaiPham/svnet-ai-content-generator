@@ -1,9 +1,12 @@
+"use client";
 import React from "react";
 import { Search } from "lucide-react";
 
-type Props = {};
+type Props = {
+  onKeywordChange: (keyword: string) => void;
+};
 
-const SearchSection: React.FC<Props> = ({}) => {
+const SearchSection: React.FC<Props> = ({ onKeywordChange }) => {
   return (
     <div className="p-10 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex flex-col items-center justify-center text-white">
       <h2 className="text-3xl font-bold  ">Browse All Templates</h2>
@@ -15,6 +18,7 @@ const SearchSection: React.FC<Props> = ({}) => {
             type="text"
             placeholder="Search ..."
             className="bg-transparent outline-none text-muted-foreground w-full"
+            onChange={(e) => onKeywordChange(e.target.value)}
           />
         </div>
       </div>
