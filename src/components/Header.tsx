@@ -9,7 +9,7 @@ type Props = {};
 
 const Header: React.FC<Props> = ({}) => {
   return (
-    <div className="p-5 shadow-sm border-b-2 flex items-center justify-between">
+    <div className="p-5 shadow-sm border-b-2 flex items-center justify-between bg-background">
       <div className="flex -gap-2 items-center p-2 rounded-md max-w-lg">
         <Input
           type="search"

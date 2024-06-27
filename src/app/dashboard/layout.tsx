@@ -6,7 +6,7 @@ type Props = {};
 
 const DashboardLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div>
+    <div className="bg-slate-100 h-screen">
       <div className="md:w-64 hidden md:block fixed">
         <Navbar />
       </div>
