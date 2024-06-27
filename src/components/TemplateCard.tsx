@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   item: TemplateType;
@@ -16,17 +17,19 @@ type Props = {
 
 const TemplateCard: React.FC<Props> = ({ item }) => {
   return (
-    <Card className="hover:scale-105 transition-all duration-300 cursor-pointer">
-      <CardHeader>
-        <CardTitle className="space-y-3">
-          <Image src={item.icon} alt={item.name} width={50} height={50} />
-          <h2 className="text-lg font-medium">{item.name}</h2>
-        </CardTitle>
-        <CardDescription className="line-clamp-3">
-          {item.description}
-        </CardDescription>
-      </CardHeader>
-    </Card>
+    <Link href={`/dashboard/ai/${item.slug}`}>
+      <Card className="hover:scale-105 transition-all duration-300 cursor-pointer">
+        <CardHeader>
+          <CardTitle className="space-y-3">
+            <Image src={item.icon} alt={item.name} width={50} height={50} />
+            <h2 className="text-lg font-medium">{item.name}</h2>
+          </CardTitle>
+          <CardDescription className="line-clamp-3">
+            {item.description}
+          </CardDescription>
+        </CardHeader>
+      </Card>
+    </Link>
   );
 };
 
