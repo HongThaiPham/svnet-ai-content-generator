@@ -206,3 +206,5 @@ export const TEMPLATE_LIST = [
     ],
   },
 ];
+
+export type TemplateType = (typeof TEMPLATE_LIST)[number];

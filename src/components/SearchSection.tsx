@@ -14,7 +14,7 @@ const SearchSection: React.FC<Props> = ({}) => {
           <input
             type="text"
             placeholder="Search ..."
-            className="bg-transparent outline-none text-muted-foreground"
+            className="bg-transparent outline-none text-muted-foreground w-full"
           />
         </div>
       </div>
