@@ -22,7 +22,7 @@ const TemplateCard: React.FC<Props> = ({ item }) => {
         <CardHeader>
           <CardTitle className="space-y-3">
             <Image src={item.icon} alt={item.name} width={50} height={50} />
-            <h2 className="text-lg font-medium">{item.name}</h2>
+            <div className="text-lg font-medium">{item.name}</div>
           </CardTitle>
           <CardDescription className="line-clamp-3">
             {item.description}

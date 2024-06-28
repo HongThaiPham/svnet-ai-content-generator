@@ -42,7 +42,7 @@ const AiFormInput: React.FC<Props> = ({ template }) => {
             width={70}
             height={70}
           />
-          <h2 className="text-2xl font-bold">{template.name}</h2>
+          <div className="text-2xl font-bold">{template.name}</div>
         </CardTitle>
         <CardDescription className="line-clamp-3">
           {template.description}
