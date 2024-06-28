@@ -1,25 +1,27 @@
 "use client";
-import React, { useCallback, useRef } from "react";
+import React, { use, useCallback, useEffect, useRef } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 
 import { Editor } from "@toast-ui/react-editor";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "./ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Copy } from "lucide-react";
 
-type Props = {};
+type Props = {
+  content?: string;
+};
 
-const AiOutput: React.FC<Props> = ({}) => {
+const AiOutput: React.FC<Props> = ({ content }) => {
   const editorRef = useRef<Editor | null>(null);
   const handleEditorChange = useCallback(() => {
     console.log(editorRef.current?.getInstance().getMarkdown());
   }, []);
+
+  useEffect(() => {
+    if (content) {
+      editorRef.current?.getInstance().setMarkdown(content);
+    }
+  }, [content]);
   return (
     <div>
       <Card>

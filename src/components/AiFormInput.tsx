@@ -1,6 +1,6 @@
 "use client";
 import { TemplateType } from "@/lib/contants";
-import React, { ChangeEventHandler, useState } from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,16 +9,17 @@ import {
   CardTitle,
 } from "./ui/card";
 import Image from "next/image";
-import { FormControl, FormDescription, FormItem, FormLabel } from "./ui/form";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
-import { Sparkles } from "lucide-react";
+import { Loader2, Sparkles } from "lucide-react";
 type Props = {
   template?: TemplateType;
+  onGenerate?: (data: any) => void;
+  isLoading?: boolean;
 };
 
-const AiFormInput: React.FC<Props> = ({ template }) => {
+const AiFormInput: React.FC<Props> = ({ template, onGenerate, isLoading }) => {
   const [formData, setFormData] = useState({});
 
   const handleSubmit = (e: any) => {
@@ -71,9 +72,15 @@ const AiFormInput: React.FC<Props> = ({ template }) => {
           <div className="flex justify-end">
             <Button
               type="submit"
-              className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white flex items-center gap-2 w-full"
+              disabled={isLoading}
+              className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white flex items-center gap-2 w-full disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={() => onGenerate && onGenerate(formData)}
             >
-              <Sparkles className="h-5 w-5" />
+              {isLoading ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <Sparkles className="h-5 w-5" />
+              )}
               Generate
             </Button>
           </div>
