@@ -6,6 +6,7 @@ import { Editor } from "@toast-ui/react-editor";
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Copy } from "lucide-react";
+import { useToast } from "./ui/use-toast";
 
 type Props = {
   content?: string;
@@ -13,6 +14,7 @@ type Props = {
 
 const AiOutput: React.FC<Props> = ({ content }) => {
   const editorRef = useRef<Editor | null>(null);
+  const { toast } = useToast();
   const handleEditorChange = useCallback(() => {
     console.log(editorRef.current?.getInstance().getMarkdown());
   }, []);
@@ -31,6 +33,15 @@ const AiOutput: React.FC<Props> = ({ content }) => {
             <Button
               variant={"outline"}
               className="bg-indigo-500 hover:bg-indigo-600 hover:text-white text-white"
+              onClick={() => {
+                navigator.clipboard.writeText(
+                  editorRef.current?.getInstance().getMarkdown()
+                );
+                toast({
+                  title: "Copied",
+                  description: "AI output copied to clipboard",
+                });
+              }}
             >
               <Copy className="mr-2 h-4 w-4" />
               Copy

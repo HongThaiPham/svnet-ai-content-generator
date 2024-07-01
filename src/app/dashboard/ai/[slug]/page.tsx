@@ -8,6 +8,9 @@ import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 import React, { useCallback, useMemo, useState } from "react";
 import { SaveAiOuput } from "../_actions/SaveAiOutput";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { GetUsageCredit } from "@/app/_actions/GetUsageCredit";
+import { useRouter } from "next/navigation";
 
 type Props = {
   params: {
@@ -18,13 +21,31 @@ type Props = {
 const AiPage: React.FC<Props> = ({ params: { slug } }) => {
   const [loading, setLoading] = useState(false);
   const [output, setOutput] = useState<string>("");
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
   const selectedTemplate: TemplateType | undefined = useMemo(
     () => TEMPLATE_LIST.find((item) => item.slug === slug),
     [slug]
   );
+
   const handleGenerate = useCallback(
     async (data: any) => {
+      const usageCredit:
+        | {
+            totalCredits: number;
+            usedCredit: number;
+          }
+        | undefined = await queryClient.getQueryData(["usage-credit"]);
+
+      if (usageCredit) {
+        if (usageCredit.usedCredit >= usageCredit.totalCredits) {
+          alert("You have used all your credits");
+          router.push("/dashboard/billing");
+          return;
+        }
+      }
+
       setLoading(true);
       try {
         const prompt = selectedTemplate?.prompt;
@@ -33,12 +54,15 @@ const AiPage: React.FC<Props> = ({ params: { slug } }) => {
         const ouput = result.response.text();
         setOutput(ouput);
         await SaveAiOuput(data, slug, ouput);
+        await queryClient.invalidateQueries({
+          queryKey: ["usage-credit"],
+        });
       } catch (error) {
       } finally {
         setLoading(false);
       }
     },
-    [selectedTemplate?.prompt, slug]
+    [queryClient, selectedTemplate?.prompt, slug]
   );
   return (
     <div className="p-5 sapce-y-5">
