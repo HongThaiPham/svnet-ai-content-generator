@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import AppProvider from "@/components/AppProvider";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Outfit({ subsets: ["latin"] });
 
@@ -26,7 +27,10 @@ export default function RootLayout({
             inter.className
           )}
         >
-          <AppProvider>{children}</AppProvider>
+          <AppProvider>
+            {children}
+            <Toaster />
+          </AppProvider>
         </body>
       </html>
     </ClerkProvider>
