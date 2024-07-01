@@ -7,6 +7,7 @@ import { TEMPLATE_LIST, TemplateType } from "@/lib/contants";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 import React, { useCallback, useMemo, useState } from "react";
+import { SaveAiOuput } from "../_actions/SaveAiOutput";
 
 type Props = {
   params: {
@@ -17,6 +18,7 @@ type Props = {
 const AiPage: React.FC<Props> = ({ params: { slug } }) => {
   const [loading, setLoading] = useState(false);
   const [output, setOutput] = useState<string>("");
+
   const selectedTemplate: TemplateType | undefined = useMemo(
     () => TEMPLATE_LIST.find((item) => item.slug === slug),
     [slug]
@@ -28,13 +30,15 @@ const AiPage: React.FC<Props> = ({ params: { slug } }) => {
         const prompt = selectedTemplate?.prompt;
         const submitPrompt = `${JSON.stringify(data)}, ${prompt}`;
         const result = await chatSession.sendMessage(submitPrompt);
-        setOutput(result.response.text());
+        const ouput = result.response.text();
+        setOutput(ouput);
+        await SaveAiOuput(data, slug, ouput);
       } catch (error) {
       } finally {
         setLoading(false);
       }
     },
-    [selectedTemplate?.prompt]
+    [selectedTemplate?.prompt, slug]
   );
   return (
     <div className="p-5 sapce-y-5">
