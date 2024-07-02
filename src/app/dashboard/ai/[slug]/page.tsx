@@ -62,7 +62,7 @@ const AiPage: React.FC<Props> = ({ params: { slug } }) => {
         setLoading(false);
       }
     },
-    [queryClient, selectedTemplate?.prompt, slug]
+    [queryClient, router, selectedTemplate?.prompt, slug]
   );
   return (
     <div className="p-5 sapce-y-5">

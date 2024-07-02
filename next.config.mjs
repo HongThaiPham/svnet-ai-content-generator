@@ -5,6 +5,9 @@ const nextConfig = {
     remotePatterns: [
       {
         hostname: "cdn-icons-png.flaticon.com"
+      },
+      {
+        hostname: 'preline.co'
       }
     ]
   }

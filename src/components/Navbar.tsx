@@ -14,10 +14,12 @@ const Navbar: React.FC<Props> = ({}) => {
   const pathname = usePathname();
   return (
     <div className="h-screen p-5 shadow-sm border space-y-4 bg-background relative">
-      <div className="flex items-center gap-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-2 rounded-md shadow-md">
-        <Image src="/logo.svg" alt="logo" width={32} height={32} />
-        <h1 className="text-sm font-bold text-white">AI Content Generator</h1>
-      </div>
+      <Link href="/">
+        <div className="flex items-center gap-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-2 rounded-md shadow-md">
+          <Image src="/logo.svg" alt="logo" width={32} height={32} />
+          <h1 className="text-sm font-bold text-white">AI Content Generator</h1>
+        </div>
+      </Link>
 
       <div>
         <Separator className="my-6" />
